@@ -1,0 +1,3 @@
+# Things to check
+- Set pins in globals.h
+- ...
