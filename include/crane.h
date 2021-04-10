@@ -14,7 +14,9 @@ private:
 public:
 	Crane(uint8_t speedPin, uint8_t forwardPin, uint8_t reversePin, int rotationSpeed, int rotationTime);
 
+	//begins crane component action
 	void begin();
 
+	//undoes begin() action
 	void reset();
 };

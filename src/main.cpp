@@ -1,18 +1,30 @@
 #include "../include/powertrain.h"
 #include "../include/crane.h"
+#include "../include/lateralmovement.h"
 #include "../include/globals.h"
 #include <Arduino.h>
 
 #define DEBUG
 
-//I'm sorry, just don't look
-Powertrain powertrain{};
+Crane rotate{CRANEROTATE_SPEED_PIN,
+			CRANEROTATE_FOR_PIN,
+			CRANEROTATE_REV_PIN,
+			CRANEROTATE_SPEED,
+			CRANEROTATE_TIME};
 
-Crane rotate{Globals::craneRotateSpeedPin, Globals::craneRotateForwardPin, Globals::craneRotateReversePin, Globals::craneRotateSpeed, Globals::craneRotateTime};
+Crane raise{CRANERAISE_SPEED_PIN,
+	CRANERAISE_FOR_PIN,
+	CRANERAISE_REV_PIN,
+	CRANERAISE_SPEED,
+	CRANERAISE_TIME};
 
-Crane raise{Globals::craneRaiseSpeedPin, Globals::craneRaiseForwardPin, Globals::craneRaiseReversePin, Globals::craneRaiseSpeed, Globals::craneRaiseTime};
+Crane deliver{CRANEDELIVER_SPEED_PIN,
+	CRANEDELIVER_FOR_PIN,
+	CRANEDELIVER_REV_PIN,
+	CRANEDELIVER_SPEED,
+	CRANEDELIVER_TIME};
 
-Crane deliver{Globals::craneDeliverSpeedPin, Globals::craneDeliverForwardPin, Globals::craneDeliverReversePin, Globals::craneDeliverSpeed, Globals::craneDeliverTime};
+LateralMovement lateralMovement{};
 
 void setup()
 {
@@ -21,5 +33,5 @@ void setup()
 
 void loop()
 {
-
+	//
 }

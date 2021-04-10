@@ -11,9 +11,9 @@ private:
 public:
 	Powertrain();
 
-	void forward(int speed);
+	void forward(unsigned int speed);
 
-	void backward(int speed);
+	void backward(unsigned int speed);
 
 	void stop();
 };

@@ -4,33 +4,32 @@
 #include <Arduino.h>
 
 Powertrain::Powertrain()
-	: m_speedPin{Globals::powertrainSpeedPin}, m_forwardPin{Globals::powertrainForwardPin}, m_reversePin{Globals::powertrainReversePin}
 {
-	pinMode(m_forwardPin, OUTPUT);
-	pinMode(m_reversePin, OUTPUT);
+	pinMode(POWERTRAIN_FOR_PIN, OUTPUT);
+	pinMode(POWERTRAIN_REV_PIN, OUTPUT);
 }
 
-void Powertrain::forward(int speed)
+void Powertrain::forward(unsigned int speed)
 {
 	Serial.println("forward");
 
-	digitalWrite(m_forwardPin, HIGH);
-	digitalWrite(m_reversePin, LOW);
-	analogWrite(m_speedPin, toPWM(speed));
+	digitalWrite(POWERTRAIN_FOR_PIN, HIGH);
+	digitalWrite(POWERTRAIN_REV_PIN, LOW);
+	analogWrite(POWERTRAIN_SPEED_PIN, toPWM(speed));
 }
 
-void Powertrain::backward(int speed)
+void Powertrain::backward(unsigned int speed)
 {
 	Serial.println("backward");
 
-	digitalWrite(m_forwardPin, LOW);
-	digitalWrite(m_reversePin, HIGH);
-	analogWrite(m_speedPin, toPWM(speed));
+	digitalWrite(POWERTRAIN_FOR_PIN, LOW);
+	digitalWrite(POWERTRAIN_REV_PIN, HIGH);
+	analogWrite(POWERTRAIN_SPEED_PIN, toPWM(speed));
 }
 
 void Powertrain::stop()
 {
 	Serial.println("stop");
 
-	analogWrite(m_speedPin, 0); //speed = 0 to stop vehicle
+	analogWrite(POWERTRAIN_SPEED_PIN, 0); //speed = 0 to stop vehicle
 }
