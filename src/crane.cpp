@@ -18,12 +18,12 @@ void Crane::begin()
 	Serial.println("beginning");
 	digitalWrite(m_forwardPin, HIGH);
 	digitalWrite(m_reversePin, LOW);
-	analogWrite(m_speedPin, toPWM(m_rotationSpeed));
+	analogWrite(m_speedPin, toPWM(m_rotationSpeed)); 
 
 	delay(m_rotationTime);
 
 	Serial.println("turn complete");
-	analogWrite(m_speedPin, 0); //stops rotation when done
+	analogWrite(m_forwardPin, LOW); //stops rotation when done
 }
 
 void Crane::reset()
@@ -36,5 +36,5 @@ void Crane::reset()
 	delay (m_rotationTime);
 
 	Serial.println("resetting complete");
-	analogWrite(m_speedPin, 0); //stops rotation when reset
+	analogWrite(m_reversePin, LOW); //stops rotation when reset
 }

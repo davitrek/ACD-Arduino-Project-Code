@@ -9,8 +9,13 @@ class LateralMovement
 private:
 	Powertrain m_powertrain;
 
+	unsigned long obstacleDistance();
+
 	//checks for obstacles, returns true if obstacle is detected
 	bool obstacleCheck();
+
+	//checks IR sensor, returns true if IR source is detected
+	bool irSensorCheck();
 
 	//checks vehicle is on path, returns true if vehicle is on path
 	//bool lineCheck();

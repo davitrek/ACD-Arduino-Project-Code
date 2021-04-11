@@ -6,48 +6,74 @@
 LateralMovement::LateralMovement()
 	: m_powertrain{}
 {
+	pinMode(USONIC_TRIG_PIN, OUTPUT);
+	pinMode(USONIC_ECHO_PIN, INPUT);
 	digitalWrite(USONIC_TRIG_PIN, LOW); //explicitly request no signal out of trigPin
 }
 
-bool LateralMovement::obstacleCheck()
+unsigned long LateralMovement::obstacleDistance()
 {
 	//send signal
 	digitalWrite(USONIC_TRIG_PIN, HIGH);
 	delayMicroseconds(10);
 	digitalWrite(USONIC_TRIG_PIN, LOW);
-	unsigned long usSendTime{micros()};
 
-	//receive signal
-	while (digitalRead(USONIC_ECHO_PIN) == LOW
-			&& (micros() - usSendTime) < USONIC_TRIG_PIN)
+	//obstacle distance is length of pulse * speed of sound in cm/us / 2
+	//divided by 2 because signal needs to get there and back
+	return {pulseIn(USONIC_ECHO_PIN, HIGH) * 0.034 / 2};
+}
 
-	//if interval between signal send and receive = USONIC_USMAX, then no
-	//signal was received, so false will be returned. Else, true is returned.
-	return {micros()- usSendTime - USONIC_USMAX};
+bool LateralMovement::obstacleCheck()
+{
+	unsigned long aggregateDistance{};
+
+	bool obstacleExists{};
+
+	//loop through n times to ensure accuracy
+	for (int i {0}; i < USONIC_REPEAT_AMOUNT; ++i)
+	{
+		obstacleExists += obstacleDistance() < USONIC_OBSTACLE_DISTANCE_MAX;
+		delay(100); //remove any feedback interference from usonic sensor
+	}
+
+	Serial.print("Obstacle distance: "); //DEBUG !!!!!!!!!!!!!!!!!!!!!
+	Serial.print(obstacleDistance());
+	Serial.println(" cm"); //END DEBUG
+
+	Serial.println(obstacleExists);
+
+	return {obstacleExists};
+}
+
+bool LateralMovement::irSensorCheck()
+{
+	Serial.println("IRSENSOR NO!");
+	return {digitalRead(IRSENSOR_PIN) == HIGH};
 }
 
 void LateralMovement::traverseForward()
 {
-	bool obstacleDetected{true};
-
 	m_powertrain.forward(TRAVERSE_SPEED);
 
-	//while ('IR emitter not detected')
-	{	
+	while (!irSensorCheck())
+	{
 		if (obstacleCheck())
 		{
+			Serial.println("HELLO!!!!!");
 			m_powertrain.stop();
 
 			//wait for obstacle to be removed
-			while (obstacleDetected)
+			while (true)
 			{
-				obstacleDetected = obstacleCheck();
-				delay(100); //to ensure proper usonic sensor output
-			}
+				Serial.println("OBSTACLE HERE!!!");
 
-			m_powertrain.forward(TRAVERSE_SPEED);
+				if (!obstacleCheck())
+					break;
+			}
 		}
 
-		delay(100); //to ensure proper usonic sensor output
+		m_powertrain.forward(TRAVERSE_SPEED);
 	}
+
+	m_powertrain.stop();
 }

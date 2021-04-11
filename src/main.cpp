@@ -4,8 +4,6 @@
 #include "../include/globals.h"
 #include <Arduino.h>
 
-#define DEBUG
-
 Crane rotate{CRANEROTATE_SPEED_PIN,
 			CRANEROTATE_FOR_PIN,
 			CRANEROTATE_REV_PIN,
@@ -29,9 +27,22 @@ LateralMovement lateralMovement{};
 void setup()
 {
 	Serial.begin(9600);
+
+	pinMode(10, OUTPUT);
+	pinMode(11, OUTPUT);
 }
 
 void loop()
 {
-	//
+
+	//lateralMovement.traverseForward();
+
+	rotate.begin();
+
+	//raise.begin();
+/*
+	digitalWrite(10, HIGH);
+	digitalWrite(11, LOW);
+	analogWrite(9, 255);
+*/
 }
