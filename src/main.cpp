@@ -28,21 +28,32 @@ void setup()
 {
 	Serial.begin(9600);
 
-	pinMode(10, OUTPUT);
-	pinMode(11, OUTPUT);
+	pinMode(2, OUTPUT);
+	pinMode(7, INPUT);
 }
 
 void loop()
 {
 
-	//lateralMovement.traverseForward();
+	digitalWrite(2, HIGH);
 
-	rotate.begin();
+	delay (100);
+
+ 	Serial.println(digitalRead(7) != LOW); //note: if no IR is detected, IR
+										 //sensor is HIGH, connect IR sensor to
+										 //5V out on Uno
+
+	//digitalWrite(13, LOW);
+
+	//rotate.begin();
+
+	//rotate.reset();
 
 	//raise.begin();
-/*
-	digitalWrite(10, HIGH);
-	digitalWrite(11, LOW);
-	analogWrite(9, 255);
-*/
+
+	//raise.reset();
+
+	//deliver.begin();
+
+	//deliver.reset();
 }

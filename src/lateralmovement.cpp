@@ -47,8 +47,7 @@ bool LateralMovement::obstacleCheck()
 
 bool LateralMovement::irSensorCheck()
 {
-	Serial.println("IRSENSOR NO!");
-	return {digitalRead(IRSENSOR_PIN) == HIGH};
+	//
 }
 
 void LateralMovement::traverseForward()
@@ -74,6 +73,8 @@ void LateralMovement::traverseForward()
 
 		m_powertrain.forward(TRAVERSE_SPEED);
 	}
+
+	Serial.println("IR sensor detected.");
 
 	m_powertrain.stop();
 }
