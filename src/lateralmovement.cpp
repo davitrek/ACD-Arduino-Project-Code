@@ -45,6 +45,7 @@ bool LateralMovement::obstacleCheck()
 	return {obstacleExists};
 }
 
+//RETURN FALSE IF IR SENSOR NOT DETECTED
 bool LateralMovement::irSensorCheck()
 {
 	//
@@ -54,7 +55,7 @@ void LateralMovement::traverseForward()
 {
 	m_powertrain.forward(TRAVERSE_SPEED);
 
-	while (!irSensorCheck())
+	while (irSensorCheck())
 	{
 		if (obstacleCheck())
 		{
@@ -73,8 +74,6 @@ void LateralMovement::traverseForward()
 
 		m_powertrain.forward(TRAVERSE_SPEED);
 	}
-
-	Serial.println("IR sensor detected.");
 
 	m_powertrain.stop();
 }
