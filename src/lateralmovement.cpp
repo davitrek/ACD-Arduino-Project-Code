@@ -49,7 +49,7 @@ bool LateralMovement::obstacleCheck()
 bool LateralMovement::irSensorCheck()
 {
 	//voltage on IR sensor pin will be low if source is detected
-	return {digitalRead(IRSENSOR_PIN) == LOW}
+	return {digitalRead(IRSENSOR_PIN) == LOW};
 }
 
 void LateralMovement::traverseForward()

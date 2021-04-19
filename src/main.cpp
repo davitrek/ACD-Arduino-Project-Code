@@ -3,6 +3,7 @@
 #include "../include/lateralmovement.h"
 #include "../include/globals.h"
 #include <Arduino.h>
+#include <Servo.h>
 
 Crane rotate{CRANEROTATE_SPEED_PIN,
 			CRANEROTATE_FOR_PIN,
@@ -24,22 +25,48 @@ Crane deliver{CRANEDELIVER_SPEED_PIN,
 
 LateralMovement lateralMovement{};
 
+Servo myservo;
+
+int angle{0};
+
 void setup()
 {
 	Serial.begin(9600);
 
-	pinMode(2, OUTPUT);
-	pinMode(7, INPUT);
+	//pinMode(2, OUTPUT);
+	//pinMode(7, INPUT);
+
+	myservo.attach(9);
+
+
 }
 
 void loop()
 {
+	// Tell the servo to go to a particular angle:
+    myservo.write(90);
+    delay(5000);
+    myservo.write(150);
+    delay(1000);
+    //myservo.write(0);
+    //delay(1000);
 
-	digitalWrite(2, HIGH);
 
-	delay (100);
+	//myservo.writeMicroseconds(1000);
 
- 	Serial.println(digitalRead(7) != LOW); //note: if no IR is detected, IR
+	//servo.write(60);
+
+	//servo.write(0);
+
+	//delay(15);
+
+	//servo.write(70);
+
+	//digitalWrite(2, HIGH);
+
+	//delay (100);
+
+ 	//Serial.println(digitalRead(7) != LOW); //note: if no IR is detected, IR
 										 //sensor is HIGH, connect IR sensor to
 										 //5V out on Uno
 
