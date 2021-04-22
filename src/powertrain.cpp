@@ -2,34 +2,29 @@
 #include "../include/helpers.h"
 #include "../include/globals.h"
 #include <Arduino.h>
+#include <AFMotor.h>
 
 Powertrain::Powertrain()
+	: m_powertrainMotor{POWERTRAIN_MOTOR}
 {
-	pinMode(POWERTRAIN_FOR_PIN, OUTPUT);
-	pinMode(POWERTRAIN_REV_PIN, OUTPUT);
 }
 
-void Powertrain::forward(unsigned int speed)
+void Powertrain::forward()
 {
 	Serial.println("forward");
-
-	digitalWrite(POWERTRAIN_FOR_PIN, HIGH);
-	digitalWrite(POWERTRAIN_REV_PIN, LOW);
-	analogWrite(POWERTRAIN_SPEED_PIN, toPWM(speed));
+	m_powertrainMotor.setSpeed(toPWM(POWERTRAIN_FOR_SPEED));
+	m_powertrainMotor.run(FORWARD);
 }
 
-void Powertrain::backward(unsigned int speed)
+void Powertrain::backward()
 {
 	Serial.println("backward");
-
-	digitalWrite(POWERTRAIN_FOR_PIN, LOW);
-	digitalWrite(POWERTRAIN_REV_PIN, HIGH);
-	analogWrite(POWERTRAIN_SPEED_PIN, toPWM(speed));
+	m_powertrainMotor.setSpeed(toPWM(POWERTRAIN_REV_SPEED));
+	m_powertrainMotor.run(BACKWARD);
 }
 
 void Powertrain::stop()
 {
 	Serial.println("stop");
-
-	analogWrite(POWERTRAIN_SPEED_PIN, 0); //speed = 0 to stop vehicle
+	m_powertrainMotor.setSpeed(0);
 }

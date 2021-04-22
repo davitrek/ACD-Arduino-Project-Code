@@ -1,40 +1,50 @@
 #include "../include/crane.h"
 #include "../include/helpers.h"
 #include <Arduino.h>
+#include <AFMotor.h>
+#include <Servo.h>
 
-Crane::Crane(uint8_t speedPin, uint8_t forwardPin, uint8_t reversePin, int rotationSpeed, int rotationTime)
-	: m_speedPin{speedPin},
-	m_forwardPin{forwardPin},
-	m_reversePin{reversePin},
+Crane::Crane(int motorNum, int rotationSpeed, int rotationTime, int rotationResetSpeed, int rotationResetTime)
+	: m_motor{motorNum},
 	m_rotationSpeed{rotationSpeed},
-	m_rotationTime{rotationTime}
+	m_rotationTime{rotationTime},
+	m_rotationResetSpeed{rotationResetSpeed},
+	m_rotationResetTime{rotationResetTime}
 {
-	pinMode(m_forwardPin, OUTPUT);
-	pinMode(m_reversePin, OUTPUT);
 }
 
 void Crane::begin()
 {
 	Serial.println("beginning");
-	digitalWrite(m_forwardPin, HIGH);
-	digitalWrite(m_reversePin, LOW);
-	analogWrite(m_speedPin, toPWM(m_rotationSpeed)); 
+	m_motor.setSpeed(toPWM(m_rotationSpeed));
+	m_motor.run(FORWARD);
 
 	delay(m_rotationTime);
 
+	m_motor.setSpeed(0); //stop motor once turn is complete
 	Serial.println("turn complete");
-	analogWrite(m_forwardPin, LOW); //stops rotation when done
 }
 
 void Crane::reset()
 {
 	Serial.println("resetting");
-	digitalWrite(m_forwardPin, LOW);
-	digitalWrite(m_reversePin, HIGH);
-	analogWrite(m_speedPin, toPWM(m_rotationSpeed));
+	m_motor.setSpeed(toPWM(m_rotationResetSpeed));
+	m_motor.run(BACKWARD);
 
-	delay (m_rotationTime);
+	delay (m_rotationResetTime);
 
+	m_motor.setSpeed(0); //stops rotation when reset
 	Serial.println("resetting complete");
-	analogWrite(m_reversePin, LOW); //stops rotation when reset
+}
+
+void operateServo()
+{
+	Servo servo;
+	servo.attach(9);
+	servo.write(180);
+	delay(10000);
+	servo.write(80);
+	delay(5000);
+	servo.write(180);
+	delay(1000);
 }

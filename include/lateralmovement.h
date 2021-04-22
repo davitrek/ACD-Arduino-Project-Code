@@ -1,6 +1,8 @@
 #pragma once
 #include "../include/powertrain.h"
 #include <Arduino.h>
+#include <AFMotor.h>
+#include <Buzzer.h>
 
 //enum class DirectionCorrection
 
@@ -8,6 +10,7 @@ class LateralMovement
 {
 private:
 	Powertrain m_powertrain;
+	Buzzer m_buzzer;
 
 	unsigned long obstacleDistance();
 
@@ -26,6 +29,14 @@ private:
 public:
 	LateralMovement();
 
+	void playMegalovania();
+
+	void reverseBeep();
+
 	//moves vehicle from pickup to dropoff, safety checks built-in
 	void traverseForward();
+
+	void traverseBackward();
 };
+
+void operateServo();

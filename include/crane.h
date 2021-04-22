@@ -1,18 +1,18 @@
 #pragma once
 #include <Arduino.h>
+#include <AFMotor.h>
 
 class Crane
 {
 private:
-	uint8_t m_speedPin;
-	uint8_t m_forwardPin;
-	uint8_t m_reversePin;
-
+	AF_DCMotor m_motor;
 	int m_rotationSpeed;
 	int m_rotationTime;
+	int m_rotationResetTime;
+	int m_rotationResetSpeed;
 
 public:
-	Crane(uint8_t speedPin, uint8_t forwardPin, uint8_t reversePin, int rotationSpeed, int rotationTime);
+	Crane(int motorNum, int rotationSpeed, int rotationTime, int rotationResetSpeed, int rotationResetTime);
 
 	//begins crane component action
 	void begin();

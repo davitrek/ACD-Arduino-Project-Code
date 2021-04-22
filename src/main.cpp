@@ -3,57 +3,76 @@
 #include "../include/lateralmovement.h"
 #include "../include/globals.h"
 #include <Arduino.h>
+#include <AFMotor.h>
 
-Crane rotate{CRANEROTATE_SPEED_PIN,
-			CRANEROTATE_FOR_PIN,
-			CRANEROTATE_REV_PIN,
+Crane rotate{CRANEROTATE_MOTOR,
+			CRANEROTATE_SPEED,
+			CRANEROTATE_TIME,
 			CRANEROTATE_SPEED,
 			CRANEROTATE_TIME};
 
-Crane raise{CRANERAISE_SPEED_PIN,
-	CRANERAISE_FOR_PIN,
-	CRANERAISE_REV_PIN,
-	CRANERAISE_SPEED,
-	CRANERAISE_TIME};
+Crane raise{CRANERAISE_MOTOR,
+			CRANERAISE_FOR_SPEED,
+			CRANERAISE_FOR_TIME,
+			CRANERAISE_REV_SPEED,
+			CRANERAISE_REV_TIME};
 
-Crane deliver{CRANEDELIVER_SPEED_PIN,
-	CRANEDELIVER_FOR_PIN,
-	CRANEDELIVER_REV_PIN,
-	CRANEDELIVER_SPEED,
-	CRANEDELIVER_TIME};
+Crane deliver{CRANEDELIVER_MOTOR,
+			CRANEDELIVER_FOR_SPEED,
+			CRANEDELIVER_FOR_TIME,
+			CRANEDELIVER_REV_SPEED,
+			CRANEDELIVER_REV_TIME};
 
 LateralMovement lateralMovement{};
+
+//int i{};
 
 void setup()
 {
 	Serial.begin(9600);
 
 	pinMode(2, OUTPUT);
-	pinMode(7, INPUT);
 }
 
 void loop()
 {
+	//FINAL CODE
 
-	digitalWrite(2, HIGH);
+	lateralMovement.traverseForward();
 
-	delay (100);
+	delay(2000);
 
- 	Serial.println(digitalRead(7) != LOW); //note: if no IR is detected, IR
-										 //sensor is HIGH, connect IR sensor to
-										 //5V out on Uno
+	raise.begin();
+	rotate.begin();
+	deliver.begin();
 
-	//digitalWrite(13, LOW);
+	operateServo();
 
-	//rotate.begin();
+	deliver.reset();
+	rotate.reset();
+	raise.reset();
 
-	//rotate.reset();
+	lateralMovement.traverseBackward();
 
-	//raise.begin();
+	delay(20000); //delay for placing an egg in
 
-	//raise.reset();
 
-	//deliver.begin();
+/*
+	if (!(digitalRead(14)))
 
-	//deliver.reset();
+	{
+		++i;
+		Serial.print(i);
+		Serial.println(" detected");
+	}
+*/
+	/*
+	servo.write(180);
+	delay(10000);
+	servo.write(80);
+	delay(5000);
+	servo.write(180);
+	delay(1000);
+	exit(0);
+	*/
 }
