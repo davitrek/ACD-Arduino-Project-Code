@@ -20,6 +20,8 @@ private:
 	//checks IR sensor, returns true if IR source is detected
 	bool irSensorCheck();
 
+
+
 	//checks vehicle is on path, returns true if vehicle is on path
 	//bool lineCheck();
 
@@ -28,6 +30,8 @@ private:
 
 public:
 	LateralMovement();
+
+	void playStarWars();
 
 	void playMegalovania();
 

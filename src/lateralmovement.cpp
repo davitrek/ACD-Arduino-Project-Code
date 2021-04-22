@@ -13,6 +13,91 @@ LateralMovement::LateralMovement()
 	digitalWrite(USONIC_TRIG_PIN, LOW); //explicitly request no signal out of trigPin
 }
 
+void LateralMovement::playStarWars()
+{
+	m_buzzer.sound(NOTE_A3, 500);
+  m_buzzer.sound(NOTE_A3, 500);
+  m_buzzer.sound(NOTE_A3, 500);
+  m_buzzer.sound(NOTE_F3, 375);
+  m_buzzer.sound(NOTE_C4, 125);
+
+  m_buzzer.sound(NOTE_A3, 500);
+  m_buzzer.sound(NOTE_F3, 375);
+  m_buzzer.sound(NOTE_C4, 125);
+  m_buzzer.sound(NOTE_A3, 1000);
+
+  m_buzzer.sound(NOTE_E4, 500);
+  m_buzzer.sound(NOTE_E4, 500);
+  m_buzzer.sound(NOTE_E4, 500);
+  m_buzzer.sound(NOTE_F4, 375);
+  m_buzzer.sound(NOTE_C4, 125);
+
+  m_buzzer.sound(NOTE_GS3, 500);
+  m_buzzer.sound(NOTE_F3, 375);
+  m_buzzer.sound(NOTE_C4, 125);
+  m_buzzer.sound(NOTE_A3, 1000);
+
+  m_buzzer.sound(NOTE_A4, 500);
+  m_buzzer.sound(NOTE_A3, 375);
+  m_buzzer.sound(NOTE_A3, 125);
+  m_buzzer.sound(NOTE_A4, 500);
+  m_buzzer.sound(NOTE_GS4, 375);
+  m_buzzer.sound(NOTE_G4, 125);
+
+  m_buzzer.sound(NOTE_FS4, 125);
+  m_buzzer.sound(NOTE_E4, 125);
+  m_buzzer.sound(NOTE_F4, 250);
+  m_buzzer.sound(0, 250);
+  m_buzzer.sound(NOTE_AS3, 250);
+  m_buzzer.sound(NOTE_DS4, 500);
+  m_buzzer.sound(NOTE_D4, 375);
+  m_buzzer.sound(NOTE_CS4, 125);
+
+  m_buzzer.sound(NOTE_C4, 125);
+  m_buzzer.sound(NOTE_B3, 125);
+  m_buzzer.sound(NOTE_C4, 250);
+  m_buzzer.sound(0, 250);
+  m_buzzer.sound(NOTE_F3, 250);
+  m_buzzer.sound(NOTE_GS3, 500);
+  m_buzzer.sound(NOTE_F3, 375);
+  m_buzzer.sound(NOTE_A3, 125);
+
+  m_buzzer.sound(NOTE_C4, 500);
+  m_buzzer.sound(NOTE_A3, 375);
+  m_buzzer.sound(NOTE_C4, 125);
+  m_buzzer.sound(NOTE_E4, 1000);
+
+  m_buzzer.sound(NOTE_A4, 500);
+  m_buzzer.sound(NOTE_A3, 375);
+  m_buzzer.sound(NOTE_A3, 125);
+  m_buzzer.sound(NOTE_A4, 500);
+  m_buzzer.sound(NOTE_GS4, 375);
+  m_buzzer.sound(NOTE_G4, 125);
+
+  m_buzzer.sound(NOTE_FS4, 125);
+  m_buzzer.sound(NOTE_E4, 125);
+  m_buzzer.sound(NOTE_F4, 250);
+  m_buzzer.sound(0, 250);
+  m_buzzer.sound(NOTE_AS3, 250);
+  m_buzzer.sound(NOTE_DS4, 500);
+  m_buzzer.sound(NOTE_D4, 375);
+  m_buzzer.sound(NOTE_CS4, 125);
+
+  m_buzzer.sound(NOTE_C4, 125);
+  m_buzzer.sound(NOTE_B3, 125);
+  m_buzzer.sound(NOTE_C4, 250);
+  m_buzzer.sound(0, 250);
+  m_buzzer.sound(NOTE_F3, 250);
+  m_buzzer.sound(NOTE_GS3, 500);
+  m_buzzer.sound(NOTE_F3, 375);
+  m_buzzer.sound(NOTE_C4, 125);
+
+  m_buzzer.sound(NOTE_A3, 500);
+  m_buzzer.sound(NOTE_F3, 375);
+  m_buzzer.sound(NOTE_C4, 125);
+  m_buzzer.sound(NOTE_A3, 1000);
+}
+
 void LateralMovement::playMegalovania()
 {
 	m_buzzer.begin(10);
@@ -114,7 +199,7 @@ void LateralMovement::traverseForward()
 	m_powertrain.forward();
 	digitalWrite(STOPLIGHT_PIN, LOW);
 	digitalWrite(GOLIGHT_PIN, HIGH);
-	while (!irSensorCheck())
+	while (true)
 	{
 		if (obstacleCheck())
 		{

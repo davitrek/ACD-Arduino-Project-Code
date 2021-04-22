@@ -38,6 +38,8 @@ void loop()
 {
 	//FINAL CODE
 
+	lateralMovement.playMegalovania();
+/*
 	lateralMovement.traverseForward();
 
 	delay(2000);
